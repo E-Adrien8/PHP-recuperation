@@ -10,7 +10,35 @@
 
    $message3 = $_POST['user_message'];
 
-    echo $message1. $message2. $message3 ;
+    
+
+
+//securisation email
+
+$_SESSION['errors'] = $errors;
+
+
+function test_input($var)
+{
+    $data = trim($var);
+    $data = stripslashes($var);
+    $data = htmlspecialchars($var);
+    return $var;
+}
+
+if (empty($_POST["user_email"])) {
+    $_SESSION["errors"]["emailErr"] = "un Email SVP";
+    header("Location: form.php");
+} else {
+    $email = test_input($_POST["user_email"]);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION["errors"]["emailErr"] = "Format e-mail non compris";
+        header("Location: form.php");
+    } else {
+        echo $message1. $message2. $message3 ;
+    };
+};
+
 
 
 
